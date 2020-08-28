@@ -1,6 +1,7 @@
 pip3 install requests bs4 -i https://mirrors.aliyun.com/pypi/simple/
 #echo `dirname $0`
 file_path="$PWD"
+chmod 755 $file_path/*
 #建立软连接 建立网页
 ln -s $file_path /www/v2ray
 #添加 内容进入crontab文件 并重启crontab服务

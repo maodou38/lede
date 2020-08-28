@@ -5,7 +5,7 @@
 from freev2ray import FreeV2ray
 import base64
 import time
-f = open("F:\\index.html", "r+")
+f = open("/www/v2ray/index.html", "r+")
 oldline = f.read()
 flag = False
 code = bytes("", encoding="utf-8")
