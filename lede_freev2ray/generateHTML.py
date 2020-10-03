@@ -5,21 +5,22 @@
 from freev2ray import FreeV2ray
 import base64
 import time
+from datetime import datetime
+import os
 f = open("/www/v2ray/index.html", "r+")
 oldline = f.read()
-flag = False
+
 code = bytes("", encoding="utf-8")
-while not flag:
-    vmess = FreeV2ray().getVmessFromWeb()
-    print("vmess:" + vmess)
-    code = base64.b64encode(vmess.encode("utf-8"))
-    if oldline.strip() != str(code.decode("utf-8")).strip():
-        print("oldline:" + oldline.strip())
-        print("newline:" + str(code.decode("utf-8")).strip())
-        flag = True
+
+vmess = FreeV2ray().getVmessFromWeb()
+code = base64.b64encode(vmess.encode("utf-8"))
+if oldline.strip() != str(code.decode("utf-8")).strip():
+    f.seek(0)
+    f.truncate()
+    f.write(code.decode("utf-8"))
+    f.close()
+    dayOfWeek = datetime.now().isoweekday()
+    if(dayOfWeek == 7):
+      os.system("/usr/share/shadowsocksr/ssrplusupdate.sh >>/dev/null 2>&1")
     else:
-        time.sleep(10)
-f.seek(0)
-f.truncate()
-f.write(code.decode("utf-8"))
-f.close()
+      os.system("/usr/bin/lua /usr/share/shadowsocksr/subscribe.lua >>/dev/null 2>&1")
