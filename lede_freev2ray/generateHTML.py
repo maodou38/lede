@@ -19,8 +19,10 @@ if oldline.strip() != str(code.decode("utf-8")).strip():
     f.truncate()
     f.write(code.decode("utf-8"))
     dayOfWeek = datetime.now().isoweekday()
+    f.close()
     if(dayOfWeek == 7):
       os.system("/usr/share/shadowsocksr/ssrplusupdate.sh >>/dev/null 2>&1")
     else:
       os.system("/usr/bin/lua /usr/share/shadowsocksr/subscribe.lua >>/dev/null 2>&1")
-f.close()
+else:
+  f.close()
